@@ -148,3 +148,37 @@ function squareDigits(num) {
 // Less than 30 characters.
 
 countDown = n => n + 2 + `!${n + 1}!` + n;
+
+// // Given an array, return the reversed version of the array (a different kind of reverse though), you reverse portions of the array, you'll be given a length argument which represents the length of each portion you are to reverse.
+
+function CaesarCipher(num) {
+  this.num = num;
+  this.encode = function(str) {
+    let upper = str.toUpperCase().split("");
+    let enc = upper.map(function(a) {
+      if (a.charCodeAt(0) < 65 || a.charCodeAt(0) > 90) {
+        return a;
+      } else {
+        let code = a.charCodeAt(0) + num;
+        if (code > 90) {
+          return String.fromCharCode(code - 26);
+        } else return String.fromCharCode(code);
+      }
+    });
+    return enc.join("");
+  };
+  this.decode = function(str) {
+    let strArr = str.split("");
+    let dec = strArr.map(function(a) {
+      if (a.charCodeAt(0) < 65 || a.charCodeAt(0) > 90) {
+        return a;
+      } else {
+        let code = a.charCodeAt(0) - num;
+        if (code < 65) {
+          return String.fromCharCode(code + 26);
+        } else return String.fromCharCode(code);
+      }
+    });
+    return dec.join("");
+  };
+}
