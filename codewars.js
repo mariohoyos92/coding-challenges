@@ -182,3 +182,112 @@ function CaesarCipher(num) {
     return dec.join("");
   };
 }
+
+// Happy Holidays fellow Code Warriors!
+// Santa just finished taking a data structures course, and thought it would be a great idea to build a Binary Christmas Tree! All of Santa's helpers created a Binary Christmas Tree, but not all of them meet his requirements. Can you write some code to validate the Binary Christmas Trees?
+
+// Valid Binary Christmas Tree
+// Write a function isValidTree that accepts a Binary Tree, and returns true if it meets Santa's requirements, false otherwise. Since the tree is a binary tree, each node can have 0, 1, or 2 children. The left and right properties can be used to access the current nodes left and right children. All nodes have an ornament property, which is the name of the ornament, and a color property, which represents the color of the ornament.
+
+// Santa's Binary Christmas Tree Requirements
+// A valid Binary Christmas Tree will meet the following requirements:
+
+// Root node has a 'star' ornament
+// Nodes with zero children (excluding the root node) have a 'blue' colored ornament
+// Nodes with one or two children (excluding the root node) have a 'red' colored ornament
+
+function isValidTree(tree) {
+  let isValid = true;
+
+  function deepDiver(obj) {
+    if (obj.right || obj.left) {
+      if (obj.color !== "red") isValid = false;
+
+      if (obj.right) {
+        deepDiver(obj.right);
+      }
+      if (obj.left) {
+        deepDiver(obj.left);
+      }
+    } else if (!obj.left && !obj.right) {
+      if (obj.color !== "blue") isValid = false;
+    }
+  }
+
+  if (tree.ornament === "star") {
+    if (tree.left) {
+      deepDiver(tree.left);
+    }
+    if (tree.right) {
+      deepDiver(tree.right);
+    }
+  } else {
+    isValid = false;
+  }
+  return isValid;
+}
+
+// Create a function named divisors/Divisors that takes an integer and returns an array with all of the integer's divisors(except for 1 and the number itself). If the number is prime return the string '(integer) is prime' (null in C#) (use Either String a in Haskell and Result<Vec<u32>, String> in Rust).
+
+function divisors(num) {
+  let divisors = [];
+  for (let i = 2; i < num; i++) {
+    if (num % i === 0) divisors.push(i);
+  }
+  return divisors.length === 0 ? `${num} is prime` : divisors;
+}
+
+// Sheldon, Leonard, Penny, Rajesh and Howard are in the queue for a "Double Cola" drink vending machine; there are no other people in the queue. The first one in the queue (Sheldon) buys a can, drinks it and doubles! The resulting two Sheldons go to the end of the queue. Then the next in the queue (Leonard) buys a can, drinks it and gets to the end of the queue as two Leonards, and so on.
+
+// For example, Penny drinks the third can of cola and the queue will look like this:
+
+// Rajesh, Howard, Sheldon, Sheldon, Leonard, Leonard, Penny, Penny
+// Write a program that will return the name of the person who will drink the n-th cola.
+
+// Note that in the very beginning the queue looks like that:
+
+// Sheldon, Leonard, Penny, Rajesh, Howard
+// ##Input
+
+// The input data consist of an array which contains at least 1 name, and single integer n.
+
+function whoIsNext(names, r) {
+  let total = 0,
+    n = 0,
+    flag = false,
+    len = names.length;
+  if (r <= names.length) {
+    return names[r - 1];
+  }
+  while (total < r && !flag) {
+    total += len * Math.pow(2, n);
+    n++;
+    if (total + len * Math.pow(2, n) >= r) {
+      flag = true;
+    }
+  }
+  var numInPlace = Math.pow(2, n);
+  var remainder = r - total;
+  var place = Math.ceil(remainder / numInPlace);
+  return names[place - 1];
+}
+
+// Remove n exclamation marks in the sentence from left to right. n is positive integer.
+
+function remove(s, n) {
+  let removed = 0;
+  let stringArr = s.split("");
+
+  for (let i = 0; removed < n; i++) {
+    if (i > stringArr.length) {
+      break;
+    }
+    if (stringArr[i] === "!") {
+      stringArr.splice(i, 1);
+      i--;
+      removed++;
+    }
+    continue;
+  }
+  return stringArr.join("");
+}
