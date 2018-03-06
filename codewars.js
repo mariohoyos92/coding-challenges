@@ -291,3 +291,84 @@ function remove(s, n) {
   }
   return stringArr.join("");
 }
+
+// Given an array with 5 string values 'a', 'b' or 'c'. Check if the array contains three and two of the same values.
+function checkThreeAndTwo(array) {
+  let aCount = 0;
+  let bCount = 0;
+  let cCount = 0;
+  array.forEach(letter => {
+    if (letter === "a") {
+      aCount++;
+    } else {
+      if (letter === "b") {
+        bCount++;
+      } else {
+        cCount++;
+      }
+    }
+  });
+  return (
+    (aCount + bCount === 5 && aCount > 1 && bCount > 1) ||
+    (bCount + cCount === 5 && bCount > 1 && cCount > 1) ||
+    (aCount + cCount === 5 && aCount > 1 && cCount > 1)
+  );
+}
+
+// I don't think we have this specific prime kata on codewars, yet.
+
+// It's really simple:
+
+// Get the next prime number!
+
+// You will get a number n (n>=0) and your task is to find the next prime number.
+
+// e.g: nextPrime(5)=>7 || nextPrime(12)=>13
+
+// Make sure to optimize your code. There will be huge numbers in the tests!
+
+const nextPrime = n => (isPrime(n + 1) ? n + 1 : nextPrime(n + 1));
+
+const isPrime = n => {
+  if (n < 2) {
+    return false;
+  }
+
+  for (var i = 2; i <= Math.sqrt(n); i++) {
+    if (n % i === 0) {
+      return false;
+    }
+  }
+
+  return true;
+};
+
+// Write a function named sumDigits which takes a number as input and returns the sum of the absolute value of each of the number's decimal digits. For example:
+
+//   sumDigits(10);  // Returns 1
+//   sumDigits(99);  // Returns 18
+//   sumDigits(-32); // Returns 5
+// Let's assume that all numbers in the input will be integer values.
+
+function sumDigits(number) {
+  return number
+    .toString()
+    .split("")
+    .reduce((acc, curr) => acc + curr, 0);
+}
+
+// The magic sum of 3s is calculated on an array by summing up odd numbers which include the digit 3. Write a function magic_sum which accepts an array of integers and returns the sum.
+
+// Example: [3, 12, 5, 8, 30, 13] results in 16 (3 + 13)
+
+// If the sum cannot be calculated, 0 should be returned.
+
+function magicSum(numbers) {
+  let sum = 0;
+  numbers.forEach(number => {
+    if (number % 2 !== 0 && number.toString().indexOf("3") !== -1) {
+      sum += number;
+    }
+  });
+  return sum;
+}
