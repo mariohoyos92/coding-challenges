@@ -372,3 +372,109 @@ function magicSum(numbers) {
   });
   return sum;
 }
+
+// Write a function called that takes a string of parentheses, and determines if the order of the parentheses is valid. The function should return true if the string is valid, and false if it's invalid.
+
+// Examples
+// "()"              =>  true
+// ")(()))"          =>  false
+// "("               =>  false
+// "(())((()())())"  =>  true
+// Constraints
+// 0 <= input.length <= 100
+
+// You may assume that the input string will only contain opening and closing parenthesis and will not be an empty string.
+
+function isValidParenth(str) {
+  let parenthBalance = 0;
+
+  str.split("").forEach(par => {
+    if (parenthBalance < 0) {
+      return false;
+    } else if (par === "(") {
+      parenthBalance++;
+    } else {
+      parenthBalance--;
+    }
+  });
+
+  return parenthBalance === 0;
+}
+
+// In this Kata, we will calculate the minumum number that is not possible sum from a list of integers.
+
+// solve([1,2,8,7]) = 4, because we can get 1, 2, 1+2=3. But 4 is the minimum number not possible from the list.
+// solve([4,2,12,3,1]) = 11. We have 1, 2, 3, 4, 4+1=5, 4+2=6, 4+3=7,4+3+1=8,4+3+2=9,4+3+2+1=10. But no 11.
+// solve([4,2,12,3]) = 1
+// More examples in test cases.
+
+// Good luck!
+
+function solve(arr) {
+  arr = arr.sort((a, b) => a - b);
+  if (arr[0] > 1) return 1;
+  let sum = 0;
+  for (let i = 0; i < arr.length; i++) {
+    sum += arr[i];
+    if (arr[i + 1] > sum + 1) return sum + 1;
+  }
+  return sum + 1;
+}
+
+// Given a credit card number we can determine who the issuer/vendor is with a few basic knowns.
+
+// +============+=============+===============+
+// | Card Type  | Begins With | Number Length |
+// +============+=============+===============+
+// | AMEX       | 34 or 37    | 15            |
+// +------------+-------------+---------------+
+// | Discover   | 6011        | 16            |
+// +------------+-------------+---------------+
+// | Mastercard | 51-55       | 16            |
+// +------------+-------------+---------------+
+// | VISA       | 4           | 13 or 16      |
+// +------------+-------------+---------------+
+// Write a function (getIssuer(number) (get_issuer(number) for Python)) that will use the above known values to determine the card issuer given a card number. If the number cannot be matched then the function should return the string Unknown.
+
+// Some sample numbers and their issuer:
+
+// getIssuer(4111111111111111) == "VISA"
+// getIssuer(4111111111111) == "VISA"
+// getIssuer(4012888888881881) == "VISA"
+// getIssuer(378282246310005) == "AMEX"
+// getIssuer(6011111111111117) == "Discover"
+// getIssuer(5105105105105100) == "Mastercard"
+// getIssuer(5105105105105106) == "Mastercard"
+// getIssuer(9111111111111111) == "Unknown"
+// Note: ranges stated in this kata are inclusive.
+
+function getIssuer(cardNum) {
+  const cardNumString = cardNum.toString();
+
+  if (cardNumString.length === 13 || cardNumString.length === 16) {
+    if (cardNumString.length === 13) {
+      cardNumString[0] == 4 ? "VISA" : "Unknown";
+    } else {
+      if (cardNumString[0] == 4) {
+        return "VISA";
+      } else if (
+        Number(cardNumString.slice(0, 1)) >= 51 &&
+        Number(cardNumString.slice(0, 1)) <= 55
+      ) {
+        return "Mastercard";
+      } else if (Number(cardNumString.slice(0, 3)) === 6011) {
+        return "Discover";
+      } else {
+        return "Unknown";
+      }
+    }
+  } else if (
+    cardNumString.length === 15 &&
+    (Number(cardNumString.slice(0, 1)) === 34 ||
+      Number(cardNumString.slice(0, 1)) === 37)
+  ) {
+    return "AMEX";
+  } else {
+    return "Unknown";
+  }
+}
