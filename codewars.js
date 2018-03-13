@@ -496,3 +496,114 @@ function randomCase(x) {
     })
     .join("");
 }
+
+// Let's create some scrolling text!
+
+// Your task here is to write the function scrollingText (scrolling_text in Python), which takes a string, and returns an array:
+
+// scrollingText("codewars") should return
+
+// ["CODEWARS",
+// "ODEWARSC",
+// "DEWARSCO",
+// "EWARSCOD",
+// "WARSCODE",
+// "ARSCODEW"
+// "RSCODEWA",
+// "SCODEWAR"]
+// Good luck!
+
+function scrollingText(str) {
+  let tempArr = [];
+  let finalArr = [];
+  let upperCase = str.toUpperCase().split("");
+  for (let i = 0; i < str.length; i++) {
+    for (let k = 0; k < str.length; k++) {
+      tempArr.push(upperCase[k]);
+    }
+    finalArr.push(tempArr.join(""));
+    tempArr = [];
+    upperCase.push(upperCase[0]);
+    upperCase.splice(0, 1);
+  }
+  return finalArr;
+}
+
+// In this kata you're expected to find the longest consecutive sequence of positive squares that sums up to a number.
+
+// E.g,
+
+// 595 = 62 + 72 + 82 + 92 + 102 + 112 + 122 .
+
+// Your task is to write the function longestSequence(n) that either finds the longest consecutive sequence of squares that sums to the number n, or determines that no such sequence exists.
+
+// longestSequence(50) // => [3, 4, 5]
+//     // 9 + 16 + 25 = 50
+
+// longestSequence(595) // => [6, 7, 8, 9, 10, 11, 12]
+
+// longestSequence(10) // => []
+// Return an empty array if no such sequence exists.
+
+function longestSequence(num) {
+  let options = [];
+  let squares = [];
+
+  for (let i = 1; i <= Math.floor(Math.sqrt(num)); i++) {
+    squares.push(i * i);
+    for (let j = 0; j < squares.length; j++) {
+      let current = squares.slice(j);
+      tempSum = 0;
+      for (let k = 0; k < current.length; k++) {
+        tempSum += current[k];
+        if (tempSum === num) {
+          options.push(current.slice(0, k + 1));
+        }
+      }
+    }
+  }
+
+  return (
+    options.sort((a, b) => a.length > b.length)[0].map(val => Math.sqrt(val)) ||
+    []
+  );
+}
+
+function longestSequence(num) {
+  let options = [];
+  let squares = [];
+
+  for (let i = 1; i <= Math.floor(Math.sqrt(num)); i++) {
+    squares.push(i * i);
+  }
+  for (let j = 0; j < squares.length; j++) {
+    let tempArr = squares.slice(j);
+    let tempSum = 0;
+    for (let k = 0; k < tempArr.length; k++) {
+      tempSum += tempArr[k];
+      if (tempSum === num) {
+        options.push(tempArr.slice(0, k + 1));
+      }
+    }
+  }
+  console.log(options.sort((a, b) => a.length < b.length));
+  return (
+    options.sort((a, b) => a.length < b.length)[0].map(val => Math.sqrt(val)) ||
+    []
+  );
+}
+
+function longestSequence(n) {
+  let m = Math.sqrt(n) | 0;
+  for (let i = 1; i <= m; i++) {
+    let sum = 0,
+      arr = [];
+    for (let j = i; j <= m; j++) {
+      sum += j * j;
+      arr.push(j);
+      if (sum === n) return arr;
+      if (sum > n) break;
+    }
+  }
+  return [];
+}
