@@ -730,3 +730,57 @@ let sum = arr => {
 function spam(number) {
   return "hue".repeat(number);
 }
+
+// A consonant is any letter of the alphabet except a, e, i ,o, u. The consonant substrings in the word "zodiacs" are z, d, cs. Assuming a = 1, b = 2 ... z = 26, the values of these substrings are 26 ,4, 22 because z = 26,d = 4,cs=3+19=22. The maximum value of these substrings is 26. Therefore, solve("zodiacs") = 26.
+
+// Given a lowercase string that has alphabetic characters only and no spaces, return the highest value of consonant substrings.
+
+// Good luck!
+
+function solve(str) {
+  const vowels = ["a", "e", "i", "o", "u"];
+  const alphabet = {
+    a: 1,
+    b: 2,
+    c: 3,
+    d: 4,
+    e: 5,
+    f: 6,
+    g: 7,
+    h: 8,
+    i: 9,
+    j: 10,
+    k: 11,
+    l: 12,
+    m: 13,
+    n: 14,
+    o: 15,
+    p: 16,
+    q: 17,
+    r: 18,
+    s: 19,
+    t: 20,
+    u: 21,
+    v: 22,
+    w: 23,
+    x: 24,
+    y: 25,
+    z: 26
+  };
+  let maxCount = 0;
+  let subStringArr = str.split(/[aeiou]/).filter(substring => substring);
+
+  subStringArr.forEach(substring => {
+    let value = 0;
+    substring.split("").forEach(letter => {
+      value += alphabet[letter];
+      if (value === 26) {
+        return 26;
+      }
+    });
+    if (value > maxCount) {
+      maxCount = value;
+    }
+  });
+  return maxCount;
+}
