@@ -784,3 +784,34 @@ function solve(str) {
   });
   return maxCount;
 }
+
+// You have an array of integers and have a frog at the first position
+
+// [Frog, int, int, int, ..., int]
+
+// The integer itself may tell you the length and the direction of the jump
+
+//  For instance:
+//   2 = jump two indices to the right
+//  -3 = jump three indices to the left
+//   0 = stay at the same position
+// Your objective is to find how many jumps are needed to jump out of the array.
+
+// Return -1 if Frog can't jump out of the array
+
+function frogJump(arr) {
+  if (arr.length === 0 || arr.reduce((a, b) => a + b) === 0) {
+    return -1;
+  }
+  let currentPosition = 0;
+  let lastPosition = 0;
+  let swapper;
+  let jumpCount = 0;
+  while (arr[currentPosition] !== undefined) {
+    jumpCount++;
+    swapper = currentPosition;
+    currentPosition += arr[currentPosition];
+    lastPosition = swapper;
+  }
+  return jumpCount;
+}
